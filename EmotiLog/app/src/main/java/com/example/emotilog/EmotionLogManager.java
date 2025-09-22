@@ -21,6 +21,10 @@ public class EmotionLogManager {
         Calendar thisDay = Calendar.getInstance();
         Calendar emotionLogDate = Calendar.getInstance();
 
+        if (emotionLogs.isEmpty()) {
+            return emotionsThisDay;
+        }
+
         for (EmotionLog emotionLog: emotionLogs) {
             thisDay.setTime(date);
             emotionLogDate.setTime(emotionLog.getTimestamp());

@@ -10,12 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
+    SimpleDateFormat dateFormat;
+
     public EmotionLogArrayAdapter(Context context, ArrayList<EmotionLog> emotionLogs) {
         super(context, 0, emotionLogs);
+        dateFormat = new SimpleDateFormat("yyyy-MM-ss, HH:mm", Locale.getDefault());
     }
 
     @NonNull
@@ -34,7 +39,7 @@ public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
         TextView timestampText = view.findViewById(R.id.timestamp_text);
 
         emotionText.setText(emotionLog.getEmotion());
-        timestampText.setText(emotionLog.getTimestamp().toString());
+        timestampText.setText(dateFormat.format(emotionLog.getTimestamp()));
 
         return view;
     }

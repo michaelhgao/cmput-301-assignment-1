@@ -1,8 +1,10 @@
 package com.example.emotilog;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,23 +16,18 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class ViewEmotionLogsActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat;
     Date currentDate;
-    String currentDateString;
     ArrayList<EmotionLog> currentDateEmotions;
 
     EmotionLogArrayAdapter emotionsAdapter;
     ListView emotionsView;
 
-    private void formatDate() {
-        dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        currentDate = new Date();
-        currentDateString = dateFormat.format(currentDate);
-    }
 
     private void createButtons() {
         Button btnBackToMain = findViewById(R.id.btn_logs_back_to_main);
@@ -38,7 +35,9 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         Button btnNextDate = findViewById(R.id.btn_logs_next_date);
         TextView textViewCurrentDate = findViewById(R.id.textview_logs_current_date);
 
-        textViewCurrentDate.setText(currentDateString);
+        dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+        currentDate = new Date();
+        textViewCurrentDate.setText(dateFormat.format(currentDate));
 
         btnBackToMain.setOnClickListener(v -> {
             Intent intent = new Intent(ViewEmotionLogsActivity.this, MainActivity.class);
@@ -46,12 +45,25 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         });
         btnPrevDate.setOnClickListener(v -> {});
         btnNextDate.setOnClickListener(v -> {});
-        textViewCurrentDate.setOnClickListener(v -> {});
+        textViewCurrentDate.setOnClickListener(v -> {
+            final Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                ViewEmotionLogsActivity.this,
+                (view, year1, month1, dayOfMonth) -> textViewCurrentDate.setText(dayOfMonth + "-" + (month1 +1) + "-" + year1),
+                year,
+                month,
+                day);
+            
+            datePickerDialog.show();
+        });
     }
     
     private void createListViewEmotions() {
-        currentDateEmotions = EmotionLogManager.getAllEmotionLogs();
-//        currentDateEmotions = EmotionLogManager.getEmotionLogsByDate(currentDate);
+        currentDateEmotions = EmotionLogManager.getEmotionLogsByDate(currentDate);
 
         emotionsView = findViewById(R.id.listview_logs_logs);
 
@@ -70,10 +82,9 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
             return insets;
         });
 
-        formatDate();
-
-        createButtons();
         createListViewEmotions();
+        createButtons();
+
 
 
     }
