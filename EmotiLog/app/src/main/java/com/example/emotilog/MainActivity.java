@@ -10,12 +10,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    EmotionLogManager emotionLogManager;
     final List<String> emotions = Arrays.asList("\uD83D\uDE00", "\uD83D\uDE06", "\uD83D\uDE0D", "\uD83E\uDD2A", "\uD83D\uDE0E", "\uD83D\uDE41", "\uD83D\uDE21", "\uD83D\uDE28", "\uD83D\uDE10");
 
     private void createButtons() {
@@ -34,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
         btn4.setText(emotions.get(4));
         btn5.setText(emotions.get(5));
 
-        btn0.setOnClickListener(v -> emotionLogManager.addEmotionLog(emotions.get(0)));
-        btn1.setOnClickListener(v -> emotionLogManager.addEmotionLog(emotions.get(1)));
-        btn2.setOnClickListener(v -> emotionLogManager.addEmotionLog(emotions.get(2)));
-        btn3.setOnClickListener(v -> emotionLogManager.addEmotionLog(emotions.get(3)));
-        btn4.setOnClickListener(v -> emotionLogManager.addEmotionLog(emotions.get(4)));
-        btn5.setOnClickListener(v -> emotionLogManager.addEmotionLog(emotions.get(5)));
+        btn0.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(0)));
+        btn1.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(1)));
+        btn2.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(2)));
+        btn3.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(3)));
+        btn4.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(4)));
+        btn5.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(5)));
         btnViewEmotionLogs.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ViewEmotionLogs.class);
+            Intent intent = new Intent(MainActivity.this, ViewEmotionLogsActivity.class);
             startActivity(intent);
         });
     }
@@ -61,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        emotionLogManager = new EmotionLogManager();
         createButtons();
 
     }

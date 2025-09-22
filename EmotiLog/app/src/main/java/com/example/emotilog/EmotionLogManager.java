@@ -5,18 +5,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class EmotionLogManager {
-    ArrayList<EmotionLog> emotionLogs;
+    static ArrayList<EmotionLog> emotionLogs = new ArrayList<>();;
 
-    public EmotionLogManager() {
-        this.emotionLogs = new ArrayList<>();
-    }
-
-    public void addEmotionLog(String emotion) {
+    public static void addEmotionLog(String emotion) {
         EmotionLog emotionLog = new EmotionLog(emotion, new Date());
-        this.emotionLogs.add(emotionLog);
+        emotionLogs.add(emotionLog);
     }
 
-    public ArrayList<EmotionLog> getEmotionLogsByDate(Date date) {
+    public static ArrayList<EmotionLog> getAllEmotionLogs() {
+        return emotionLogs;
+    }
+
+    public static ArrayList<EmotionLog> getEmotionLogsByDate(Date date) {
         ArrayList<EmotionLog> emotionsThisDay = new ArrayList<>();
         Calendar thisDay = Calendar.getInstance();
         Calendar emotionLogDate = Calendar.getInstance();
