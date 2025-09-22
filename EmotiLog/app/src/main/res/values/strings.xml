@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EmotiLog</string>
+    <string name="view_logs">View logs</string>
+    <string name="btn_prev_date"><![CDATA[<]]></string>
+    <string name="btn_next_date"><![CDATA[>]]></string>
+    <string name="back">Back</string>
+    <string name="button_emoticon_default">:(</string>
+    <string name="current_date_def">Current Date</string>
+</resources>
