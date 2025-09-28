@@ -8,4 +8,5 @@
     <string name="current_date_def">Current Date</string>
     <string name="emotion_text">Emotion</string>
     <string name="timestamp_text">Timestamp</string>
+    <string name="view_summary">View Summary</string>
 </resources>

@@ -20,7 +20,7 @@ public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
 
     public EmotionLogArrayAdapter(Context context, ArrayList<EmotionLog> emotionLogs) {
         super(context, 0, emotionLogs);
-        dateFormat = new SimpleDateFormat("yyyy-MM-ss, HH:mm", Locale.getDefault());
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-ss, HH:mm", Locale.getDefault());
     }
 
     @NonNull
@@ -39,7 +39,7 @@ public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
         TextView timestampText = view.findViewById(R.id.timestamp_text);
 
         emotionText.setText(emotionLog.getEmotion());
-        timestampText.setText(dateFormat.format(emotionLog.getTimestamp()));
+        timestampText.setText(this.dateFormat.format(emotionLog.getTimestamp()));
 
         return view;
     }

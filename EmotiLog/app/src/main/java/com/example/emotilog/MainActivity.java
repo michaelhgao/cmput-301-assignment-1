@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     final List<String> emotions = Arrays.asList("\uD83D\uDE00", "\uD83D\uDE06", "\uD83D\uDE0D", "\uD83E\uDD2A", "\uD83D\uDE0E", "\uD83D\uDE41", "\uD83D\uDE21", "\uD83D\uDE28", "\uD83D\uDE10");
+    EmotionLogDatabase db;
 
     private void createButtons() {
         Button btn0 = findViewById(R.id.btn_main_0);
@@ -25,19 +26,19 @@ public class MainActivity extends AppCompatActivity {
         Button btn5 = findViewById(R.id.btn_main_5);
         Button btnViewEmotionLogs = findViewById(R.id.btn_main_view_logs);
 
-        btn0.setText(emotions.get(0));
-        btn1.setText(emotions.get(1));
-        btn2.setText(emotions.get(2));
-        btn3.setText(emotions.get(3));
-        btn4.setText(emotions.get(4));
-        btn5.setText(emotions.get(5));
+        btn0.setText(this.emotions.get(0));
+        btn1.setText(this.emotions.get(1));
+        btn2.setText(this.emotions.get(2));
+        btn3.setText(this.emotions.get(3));
+        btn4.setText(this.emotions.get(4));
+        btn5.setText(this.emotions.get(5));
 
-        btn0.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(0)));
-        btn1.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(1)));
-        btn2.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(2)));
-        btn3.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(3)));
-        btn4.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(4)));
-        btn5.setOnClickListener(v -> EmotionLogManager.addEmotionLog(emotions.get(5)));
+        btn0.setOnClickListener(v -> this.db.addEmotionLog(this.emotions.get(0)));
+        btn1.setOnClickListener(v -> this.db.addEmotionLog(this.emotions.get(1)));
+        btn2.setOnClickListener(v -> this.db.addEmotionLog(this.emotions.get(2)));
+        btn3.setOnClickListener(v -> this.db.addEmotionLog(this.emotions.get(3)));
+        btn4.setOnClickListener(v -> this.db.addEmotionLog(this.emotions.get(4)));
+        btn5.setOnClickListener(v -> this.db.addEmotionLog(this.emotions.get(5)));
         btnViewEmotionLogs.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ViewEmotionLogsActivity.class);
             startActivity(intent);
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        createButtons();
+        this.db = new EmotionLogDatabase(this);
+        this.createButtons();
 
     }
 }

@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.EmotiLog" parent="Base.Theme.EmotiLog" />
+    <style name="Button.Yellow" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/emoji_yellow</item>
+    </style>
+
 </resources>
