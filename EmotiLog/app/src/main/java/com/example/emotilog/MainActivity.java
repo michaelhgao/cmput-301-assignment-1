@@ -3,7 +3,6 @@ package com.example.emotilog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // list of all emotions available to users
-    final List<String> emotions = Arrays.asList("\uD83D\uDE00", "\uD83D\uDE06", "\uD83D\uDE0D", "\uD83E\uDD2A", "\uD83D\uDE0E", "\uD83D\uDE41", "\uD83D\uDE21", "\uD83D\uDE28", "\uD83D\uDE10");
+    final List<String> selectableEmotions = Arrays.asList("\uD83D\uDE00", "\uD83D\uDE06", "\uD83D\uDE0D", "\uD83E\uDD2A", "\uD83D\uDE0E", "\uD83D\uDE41", "\uD83D\uDE21", "\uD83D\uDE28", "\uD83D\uDE10");
     EmotionLogDatabase db;
 
     /**
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < btns.length; i++) {
             int j = i;
             // get saved emoticon buttons from shared preferences, defaults to emotions[i]
-            String savedEmoticon = getSharedPreferences("emoticon_prefs", MODE_PRIVATE).getString("btn_" + i, this.emotions.get(i));
+            String savedEmoticon = getSharedPreferences("emoticon_prefs", MODE_PRIVATE).getString("btn_" + i, this.selectableEmotions.get(i));
             btns[i].setText(savedEmoticon);
             btns[i].setOnClickListener(v -> this.addEmotionLog(btns[j]));
             btns[i].setOnLongClickListener(v -> {
@@ -78,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
      * @param btnIndex the button's index
      */
     private void changeEmotionButton(Button btn, int btnIndex) {
-        CharSequence[] emoticons = this.emotions.toArray(new CharSequence[0]);
+        CharSequence[] emoticons = this.selectableEmotions.toArray(new CharSequence[0]);
 
         new AlertDialog.Builder(this)
                 .setTitle("Change Emoticon")
                 .setItems(emoticons, (dialog, which) -> {
-                    String selectedEmoticon = this.emotions.get(which);
+                    String selectedEmoticon = this.selectableEmotions.get(which);
                     btn.setText(selectedEmoticon);
                     // saves emoticon button text into shared preferences
                     getSharedPreferences("emoticon_prefs", MODE_PRIVATE)

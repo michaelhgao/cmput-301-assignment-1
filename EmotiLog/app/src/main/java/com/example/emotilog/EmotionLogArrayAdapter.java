@@ -20,7 +20,7 @@ import java.util.Locale;
  * `emotion_timestamp.xml`.
  */
 public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
-    SimpleDateFormat dateFormat; // yyyy-MM-dd, HH:mm
+    SimpleDateFormat dateFormat; // yyyy-MM-dd, HH:mm::ss
 
     /**
      * Constructs a new `EmotionLogArrayAdapter` with the specified `context` and `emotionLogs`.
@@ -29,7 +29,7 @@ public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
      */
     public EmotionLogArrayAdapter(Context context, ArrayList<EmotionLog> emotionLogs) {
         super(context, 0, emotionLogs);
-        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm", Locale.getDefault());
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss", Locale.getDefault());
     }
 
     /**
