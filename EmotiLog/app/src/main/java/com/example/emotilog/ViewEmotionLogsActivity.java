@@ -22,8 +22,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * This class is the activity where the user can see their `EmotionLog`s and a summary of their
+ * `EmotionLog`s
+ */
 public class ViewEmotionLogsActivity extends AppCompatActivity {
-    SimpleDateFormat dateFormat;
+    SimpleDateFormat dateFormat; // MMMM dd, yyyy
     Date currentDate;
 
     ArrayList<EmotionLog> emotions;
@@ -32,6 +36,9 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
 
     EmotionLogDatabase db;
 
+    /**
+     * Initializes all attributes and views
+     */
     private void initActivity() {
         this.dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
         this.currentDate = new Date();
@@ -39,7 +46,11 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         this.initListViewEmotions();
     }
 
+    /**
+     * Initializes `Button`s
+     */
     private void initButtons() {
+        // gets buttons/textviews by views
         Button btnBackToMain = findViewById(R.id.btn_logs_back_to_main);
         Button btnViewSummary = findViewById(R.id.btn_logs_view_summary);
         Button btnPrevDate = findViewById(R.id.btn_logs_prev_date);
@@ -48,14 +59,17 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
 
         textViewCurrentDate.setText(this.dateFormat.format(this.currentDate));
 
+        // button to go to `MainActivity`
         btnBackToMain.setOnClickListener(v -> {
             Intent intent = new Intent(ViewEmotionLogsActivity.this, MainActivity.class);
             startActivity(intent);
         });
+        // button to view a summary of today's emotions
         btnViewSummary.setOnClickListener(v -> {
             this.viewSummary();
         });
 
+        // buttons to alter the date, and view emotions by the selected date
         btnPrevDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(this.currentDate);
@@ -94,6 +108,9 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initializes the `ListView` that displays `EmotionLog`s
+     */
     private void initListViewEmotions() {
         this.db = new EmotionLogDatabase(this);
         this.emotions = this.db.getEmotionLogsByDate(this.currentDate);
@@ -104,6 +121,9 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         this.emotionsView.setAdapter(this.emotionsAdapter);
     }
 
+    /**
+     * Updates the current date at the top, and notifies the adapter to show the new data
+     */
     private void updateListViewEmotionsAndDate() {
         this.emotions.clear();
         this.emotions.addAll(db.getEmotionLogsByDate(this.currentDate));
@@ -113,7 +133,11 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         textViewCurrentDate.setText(this.dateFormat.format(this.currentDate));
     }
 
+    /**
+     * Views the current date's summary, including total logs, and frequencies of each emotion
+     */
     private void viewSummary() {
+        // no emotions to show
         if (this.emotions.isEmpty()) {
             new AlertDialog.Builder(this)
                     .setTitle("Summary for " + this.dateFormat.format(this.currentDate))
@@ -123,13 +147,16 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
             return;
         }
 
+        // creates a map of emotion: frequency
         Map<String, Integer> counts = new HashMap<>();
         for (EmotionLog log : this.emotions) {
             counts.put(log.getEmotion(), counts.getOrDefault(log.getEmotion(), 0) + 1);
         }
 
+        // total number of emotions logged
         int total = this.emotions.size();
 
+        // creates the string to display the current date's emotions
         StringBuilder summary = new StringBuilder();
         summary.append("Total logs: ").append(total).append("\n\n");
         for (Map.Entry<String, Integer> entry : counts.entrySet()) {
@@ -139,6 +166,7 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
                     .append("\n");
         }
 
+        // creates an AlertDialog to show the current date's emotions
         new AlertDialog.Builder(this)
                 .setTitle("Summary for " + this.dateFormat.format(this.currentDate))
                 .setMessage(summary.toString())
@@ -146,6 +174,13 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

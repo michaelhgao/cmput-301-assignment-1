@@ -1,12 +1,19 @@
 package com.example.emotilog;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class EmotionLog implements Serializable {
+/**
+ * This class represents an `EmotionLog`, which is an `emotion` felt at a certain `timestamp`.
+ */
+public class EmotionLog {
     String emotion;
     Date timestamp;
 
+    /**
+     * Constructs a new `EmotionLog` with an `emotion` and `timestamp`
+     * @param emotion the emoticon for this log
+     * @param timestamp the time this log was created
+     */
     public EmotionLog(String emotion, Date timestamp) {
         this.emotion = emotion;
         this.timestamp = timestamp;
