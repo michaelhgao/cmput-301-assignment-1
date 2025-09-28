@@ -20,7 +20,7 @@ public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
 
     public EmotionLogArrayAdapter(Context context, ArrayList<EmotionLog> emotionLogs) {
         super(context, 0, emotionLogs);
-        this.dateFormat = new SimpleDateFormat("yyyy-MM-ss, HH:mm", Locale.getDefault());
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm", Locale.getDefault());
     }
 
     @NonNull
