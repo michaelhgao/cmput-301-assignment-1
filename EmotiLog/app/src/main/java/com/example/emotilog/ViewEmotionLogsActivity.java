@@ -32,14 +32,14 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
 
     EmotionLogDatabase db;
 
-    private void initAll() {
+    private void initActivity() {
         this.dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
         this.currentDate = new Date();
-        this.createButtons();
-        this.createListViewEmotions();
+        this.initButtons();
+        this.initListViewEmotions();
     }
 
-    private void createButtons() {
+    private void initButtons() {
         Button btnBackToMain = findViewById(R.id.btn_logs_back_to_main);
         Button btnViewSummary = findViewById(R.id.btn_logs_view_summary);
         Button btnPrevDate = findViewById(R.id.btn_logs_prev_date);
@@ -94,7 +94,7 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
         });
     }
 
-    private void createListViewEmotions() {
+    private void initListViewEmotions() {
         this.db = new EmotionLogDatabase(this);
         this.emotions = this.db.getEmotionLogsByDate(this.currentDate);
 
@@ -157,7 +157,7 @@ public class ViewEmotionLogsActivity extends AppCompatActivity {
             return insets;
         });
 
-        initAll();
+        initActivity();
 
     }
 }

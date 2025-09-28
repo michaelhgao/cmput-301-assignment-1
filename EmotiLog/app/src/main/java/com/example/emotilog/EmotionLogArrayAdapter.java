@@ -28,7 +28,7 @@ public class EmotionLogArrayAdapter extends ArrayAdapter<EmotionLog> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view;
         if (convertView == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.content, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.emotion_timestamp, parent, false);
         }
         else {
             view = convertView;
